@@ -18,7 +18,8 @@ def extract_columns(csv_file_path, new_csv_file_path):
         csv_writer.writerows(extracted_data)
 
 
-def calculate(keywords: str = '', restricted: tuple=(0, 15), size: float = 0.0,  whether_CH: bool = True, whether_up: bool = True, print_or_not: bool = False) -> None:
+def calculate(keywords: str = '', restricted: tuple = (0, 15), size: float = 0.0, whether_CH: bool = True,
+              whether_up: bool = True, print_or_not: bool = False) -> None:
     with open('new_pimento3.csv', 'r', encoding='utf-8') as c:
         reader = csv.reader(c)
         lst = []
@@ -32,9 +33,9 @@ def calculate(keywords: str = '', restricted: tuple=(0, 15), size: float = 0.0, 
                     if whether_up:
                         # include upper
                         if 'A' in str(row[3]) or "L" in str(row[3]):
-                            if row[1]!='':
+                            if row[1] != '':
                                 p = position(str(row[3]).lower())
-                                if p >= restricted[0] and p<=restricted[1]:
+                                if p >= restricted[0] and p <= restricted[1]:
                                     if float(row[1]) >= size:
                                         lst.append(float(row[1]))
                                         lst2.append(position(str(row[3]).lower()))
@@ -43,12 +44,14 @@ def calculate(keywords: str = '', restricted: tuple=(0, 15), size: float = 0.0, 
                                         else:
                                             s[row[4]] = 1
                                         if print_or_not:
-                                            print(f'{position(str(row[3]).lower())}, {str(row[3])}, {str(row[4])}, crown height is {float(row[1])}')
+                                            print(
+                                                f'{position(str(row[3]).lower())}, {str(row[3])}, {str(row[4])}, '
+                                                f'crown height is {float(row[1])}')
                     else:
                         if not ('A' in str(row[3]) or "L" in str(row[3])):
-                            if row[1]!='':
+                            if row[1] != '':
                                 p = position(str(row[3]).lower())
-                                if p >= restricted[0] and p<=restricted[1]:
+                                if p >= restricted[0] and p <= restricted[1]:
                                     if float(row[1]) >= size:
                                         lst.append(float(row[1]))
                                         lst2.append(position(str(row[3]).lower()))
@@ -57,7 +60,9 @@ def calculate(keywords: str = '', restricted: tuple=(0, 15), size: float = 0.0, 
                                         else:
                                             s[row[4]] = 1
                                         if print_or_not:
-                                            print(f'{position(str(row[3]).lower())}, {str(row[3])}, {str(row[4])}, crown height is {float(row[1])} ')
+                                            print(
+                                                f'{position(str(row[3]).lower())}, {str(row[3])}, {str(row[4])}, '
+                                                f'crown height is {float(row[1])} ')
                 else:
                     # measure crown width
                     if whether_up:
@@ -65,7 +70,7 @@ def calculate(keywords: str = '', restricted: tuple=(0, 15), size: float = 0.0, 
                         if 'A' in str(row[3]) or "L" in str(row[3]):
                             if row[2] != '':
                                 p = position(str(row[3]).lower())
-                                if p >= restricted[0] and p<=restricted[1]:
+                                if p >= restricted[0] and p <= restricted[1]:
                                     if float(row[2]) >= size:
                                         lst.append(float(row[2]))
                                         lst2.append(position(str(row[3]).lower()))
@@ -74,13 +79,14 @@ def calculate(keywords: str = '', restricted: tuple=(0, 15), size: float = 0.0, 
                                         else:
                                             s[row[4]] = 1
                                         if print_or_not:
-                                            print(f'{position(str(row[3]).lower())}, {str(row[3])}, {str(row[4])}, corwn '
-                                                  f'width is {float(row[2])}')
+                                            print(
+                                                f'{position(str(row[3]).lower())}, {str(row[3])}, {str(row[4])}, corwn '
+                                                f'width is {float(row[2])}')
                     else:
                         if not ('A' in str(row[3]) or "L" in str(row[3])):
-                            if row[2]!= '':
+                            if row[2] != '':
                                 p = position(str(row[3]).lower())
-                                if p >= restricted[0] and p<=restricted[1]:
+                                if p >= restricted[0] and p <= restricted[1]:
                                     if float(row[2]) >= size:
                                         lst.append(float(row[2]))
                                         lst2.append(position(str(row[3]).lower()))
@@ -89,58 +95,60 @@ def calculate(keywords: str = '', restricted: tuple=(0, 15), size: float = 0.0, 
                                         else:
                                             s[row[4]] = 1
                                         if print_or_not:
-                                            print(f'{position(str(row[3]).lower())}, {str(row[3])}, {str(row[4])}, crown width is {float(row[2])}')
+                                            print(
+                                                f'{position(str(row[3]).lower())}, {str(row[3])}, {str(row[4])}, '
+                                                f'crown width is {float(row[2])}')
         k = ''
         if whether_up:
-            k = 'upper teeth'
+            k += 'upper teeth'
         else:
-            k = 'lower teeth'
+            k += 'lower teeth'
         g = ''
         if whether_CH:
-            g = 'CH'
+            g += 'CH'
         else:
-            g = 'CW'
-        if keywords == '':
-            keywords = 'all location'
+            g += 'CW'
         x = ''
         y = ''
         if whether_up:
             if restricted[0] <= 3:
-                x = 'A' + str(restricted[0])
+                x += 'A' + str(restricted[0])
             else:
-                x = 'L' + str(restricted[0] - 3)
+                x += 'L' + str(restricted[0] - 3)
             if restricted[1] <= 3:
-                y = 'A' + str(restricted[1])
+                y += 'A' + str(restricted[1])
             else:
-                y = 'L' + str(restricted[1] - 3)
+                y += 'L' + str(restricted[1] - 3)
         else:
             if restricted[0] <= 3:
-                x = 'a' + str(restricted[0])
+                x += 'a' + str(restricted[0])
             else:
-                x = 'l' + str(restricted[0] - 3)
+                x += 'l' + str(restricted[0] - 3)
             if restricted[1] <= 3:
-                y = 'a' + str(restricted[1])
+                y += 'a' + str(restricted[1])
             else:
-                y = 'l' + str(restricted[1] - 3)
+                y += 'l' + str(restricted[1] - 3)
         me_pos = median(lst2)
         median_pos = ''
         if whether_up:
             if me_pos > 3:
-                median_pos = 'L' + str(me_pos - 3)
+                median_pos += 'L' + str(me_pos - 3)
             else:
-                median_pos = 'A' + str(me_pos)
+                median_pos += 'A' + str(me_pos)
         else:
             if me_pos > 3:
-                median_pos = 'l' + str(me_pos - 3)
+                median_pos += 'l' + str(me_pos - 3)
             else:
-                median_pos = 'a' + str(me_pos)
+                median_pos += 'a' + str(me_pos)
         if size > 0.0:
             print(f'The {g} of {k} are restricted to be larger than {size}')
         if restricted != (0, 15):
             print(f'The tooth position is restricted to within the range of {(x, y)}, inclusively.')
-        print(f'The data is composed of: {s} \n Position are {k}, and measures {g}.')
-        print(f'The mean {g}: {sum(lst)/len(lst)}, median {g}:{median(lst)} ,mean position:{sum(lst2)/len(lst2)}, median position: '
-              f'{median_pos}, n = {len(lst)}')
+        print(f'The data is composed of: {s} \nPosition are {k}, and measures {g}.')
+        print(
+            f'The mean {g}: {sum(lst) / len(lst)}, median {g}:{median(lst)} ,mean position:{sum(lst2) / len(lst2)}, '
+            f'median position:'
+            f'{median_pos}, n = {len(lst)}')
 
 
 def position(pos: str) -> float | int:
@@ -182,3 +190,46 @@ def interact():
     else:
         whether_up = False
     calculate(keyword, restricted, size, whether_CH, whether_up, False)
+
+
+def tl(position: str, cw: float | int, whether_A: bool):
+    with open('new_correction.csv', 'r', encoding='utf-8') as c:
+        reader = csv.reader(c)
+        if whether_A:
+
+            for row in reader:
+                # print(row[1])
+                if 'adult' in row[0]:
+                    # print('reach')
+                    if row[1] == position:
+                        scw = cw / float(row[2])
+                        if position[0] == 'a' or position[0] == 'l':
+                            new_scw = scw / 852.4 * 1093.7
+                            tl = 9.18 * (new_scw * 2) ** 0.97
+                            print(f'Base on your input, the upper scw for this individual is {new_scw}mm\nCalculate '
+                                  f'TL is {tl / 100}m\n')
+                            print(f'correction factor is {float(row[2])}, standardized correction factor for upper '
+                                  f'jaw: {float(row[2]) / 1093.7 * 852.4}')
+                            return
+                        tl = 9.18 * (scw * 2) ** 0.97
+                        print(f'Base on your input, the upper scw for this individual is {scw}mm\nCalculate '
+                              f'TL is {tl / 100}m\n')
+                        print(f'correction factor is {float(row[2])}')
+
+        else:
+            for row in reader:
+                if 'j' in row[0]:
+                    if row[1] == position:
+                        scw = cw / float(row[2])
+                        if position[0] == 'a' or position[0] == 'l':
+                            new_scw = scw / (612.2 + 611.6) * (790.9 + 783.5)
+                            tl = 9.18 * (new_scw * 2) ** 0.97
+                            print(
+                                f'Base on your input, the upper scw for this individual is {new_scw}mm\nCalculate TL is {tl / 100}m\n')
+                            print(f'correction factor is {float(row[2])}, standardized correction factor for upper '
+                                  f'jaw: {float(row[2]) / (790.9 + 783.5) * (612.2 + 611.6)}')
+                            return
+                        tl = 9.18 * (scw * 2) ** 0.97
+                        print(f'Base on your input, the upper scw for this individual is {scw}mm\nCalculate '
+                              f'TL is {tl / 100}m\n')
+                        print(f'correction factor is {float(row[2])}')
